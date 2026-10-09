@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 typedef struct s_list
 {
@@ -8,21 +9,34 @@ void  *content;
 struct s_list *next ;
 } t_list;
 
-void del(void *content)
+void *f(void *content)
+{
+   
+}
+void del(*content)
 {
     free(content);
 }
+t_list *ft_lstmap(t_list *lst, void *(*f)(void *),void (*del)(void *))
+{
+    t_list *new;
 
-void ft_lstdelone(t_list *lst, void (*del)(void*))
-{
-    if(!lst)
+    if (!lst)
         return ;
-    del(lst ->content);
-    free(lst);
+
+    new =malloc(sizeof(t_list));
+
+    if(!new)
+        return(NULL);
+
+    while(lst)
+    {
+        
+    }
 }
-int main(void)
+int main ()
 {
-    t_list *head;
+     t_list *head;
     t_list *node1;
     t_list *node2;
 
@@ -41,10 +55,4 @@ int main(void)
     node2 ->content = malloc(7);
     strcpy(node2 ->content ,"zaidan");
     node2 ->next =NULL;
-    printf("node 1 content :%s\n",(char*)node1 ->content );
-    printf("node 2 content :%s\n",(char*)node2 ->content );
-    ft_lstdelone(node1,del);
-    printf("node 2 content :%s\n",(char*)node2 ->content );
-    printf("node 1 content :%s\n",(char*)node1 ->content );
-    return (0);
 }

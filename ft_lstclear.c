@@ -13,14 +13,24 @@ void del(void *content)
     free(content);
 }
 
-void ft_lstdelone(t_list *lst, void (*del)(void*))
+void ft_lstclear(t_list **lst, void (*del)(void*))
 {
-    if(!lst)
+    t_list *ptr1;
+    t_list *ptr2;
+    if(!*lst)
         return ;
-    del(lst ->content);
-    free(lst);
+    ptr1 =*lst;
+    while(ptr1)
+    {
+        ptr2 = ptr1->next;
+        del(ptr1->content);
+        free(ptr1);
+        ptr1 = ptr2;
+    }
+    *lst =NULL;
+
 }
-int main(void)
+    int main(void)
 {
     t_list *head;
     t_list *node1;
@@ -43,8 +53,9 @@ int main(void)
     node2 ->next =NULL;
     printf("node 1 content :%s\n",(char*)node1 ->content );
     printf("node 2 content :%s\n",(char*)node2 ->content );
-    ft_lstdelone(node1,del);
-    printf("node 2 content :%s\n",(char*)node2 ->content );
-    printf("node 1 content :%s\n",(char*)node1 ->content );
-    return (0);
+    ft_lstclear(&node1,del);
+    printf("head content :%s\n",(char*)head ->content );
+    if(node1 ==NULL)
+        printf("there is no content inside \n");
+    return(0);
 }
