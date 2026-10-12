@@ -14,6 +14,12 @@ int ft_nbrlen(int n)
     }
     return(len);
 }
+static void	covert(char *str, long int num, int length)
+{
+      while (num >0)
+		{str[--length] = num % 10 + '0';
+		num /= 10;}
+}
 
 char *ft_itoa(int n)
 {
@@ -24,11 +30,9 @@ length =ft_nbrlen(n);
  str = malloc(length +1);
  if (!str)
     return(NULL);
-
  num = n;
     if (num ==0)
     str[0] = '0';
-
  str[length]='\0';
 
  if (num<0)
@@ -36,18 +40,14 @@ length =ft_nbrlen(n);
     str[0]= '-';
     num=-num ;
  }
- while (num >0)
- {
-    --length;
-    str[length] = num % 10 +'0';    
-    num = num /10;
- }
+    covert(str ,num ,length);
 return(str); 
 }
+
 int main ()
 {
     int digit ;
-    digit = -2147483648;
+    digit = -586496785;
     char *str2;
     str2 = ft_itoa(digit);
     printf(":%s" , str2);
